@@ -117,40 +117,7 @@ public class UserService {
         purchaseHistoryService.addPurchaseHistory(purchaseHistory);
         return 3;//purchase completed
     }
-//    public Integer buyWithCart(Cart cart){
-//        User user = findUserByID(cart.getUserid());
-//        if(user == null){
-//            return -2;//user not found
-//        }
-//        MerchantStock merchantStock;
-//        Integer totalPrice = 0;
-//        for(int i = 0; i < cart.getCartProducts().size(); i++){//checks if product is out of stock or not
-//            Product products = cart.getCartProducts().get(i);
-//            merchantStock = merchantStockService.finMerchantStockByProductID(products.getId());
-//            if(merchantStock.getStock() <= 0){
-//                return -1;//out of stock
-//            }
-//        }
-//        for(int i = 0; i < cart.getCartProducts().size();i++){//get total price of the cart
-//            Product products = cart.getCartProducts().get(i);
-//            totalPrice += products.getPrice();
-//        }
-//        if(totalPrice > user.getBalance()){
-//            return 0;//balance is not enough
-//        }
-//        for(int i = 0; i < cart.getCartProducts().size();i++){//reduce stock from merchant stock and adding to the purchase history
-//            Product products = cart.getCartProducts().get(i);
-//            merchantStock = merchantStockService.finMerchantStockByProductID(products.getId());
-//            merchantStock.setStock(merchantStock.getStock()-1);
-//            Integer purchaseID = purchaseHistoryService.getPurchaseHistories().size()+1;
-//            String newPurchaseID = "00"+purchaseID;
-//            PurchaseHistory purchaseHistory = new PurchaseHistory(newPurchaseID,user.getId(),products.getId(),products.getPrice());
-//            purchaseHistoryService.addPurchaseHistory(purchaseHistory);
-//        }
-//        user.setBalance(user.getBalance()- totalPrice);//deduct the amount from the user
-//        return 1;//purchase completed
-//
-//    }
+
 public Integer buyWithCart(Cart cart1){
         String cartID = cart1.getId();
     User user = findUserByID(cart1.getUserid());
