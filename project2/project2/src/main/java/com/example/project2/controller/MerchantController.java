@@ -50,12 +50,21 @@ public class MerchantController {
         }
         return ResponseEntity.status(400).body(new ResponseAPI("Merchant not found",400));
     }
-    @PutMapping("/addstock/{merchantID}/{stock}")
-    public  ResponseEntity<ResponseAPI> addStock(@PathVariable String merchantID,@PathVariable Integer stock){
-        if(merchantService.addStock(merchantID,stock)){
-            return ResponseEntity.status(200).body(new ResponseAPI("Stock updated",200));
+    @PutMapping("/addstock/{merchantID}/{productID}/{stock}")
+    public  ResponseEntity<ResponseAPI> addStock(@PathVariable String merchantID,@PathVariable String productID,@PathVariable Integer stock){
+        Integer stockStatus =  merchantService.addStock(merchantID,productID,stock);
+        switch (stockStatus){
+            case -1:{
+                return ResponseEntity.status(400).body(new ResponseAPI("Merchant not found",400));
+            }
+            case 0:
+                return ResponseEntity.status(400).body(new ResponseAPI("Product not found",400));
+            case 1:
+                return ResponseEntity.status(200).body(new ResponseAPI("Stock updated",200));
+            default:
+                return ResponseEntity.status(500).body(new ResponseAPI("Server error",500));
         }
-        return ResponseEntity.status(400).body(new ResponseAPI("Merchant not found",400));
+
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class MerchantService {
     ArrayList<Merchant> merchants = new ArrayList<>();
     private final MerchantStockService merchantStockService;
+    private final ProductService productService;
 
     public ArrayList<Merchant> getMerchants(){
         return merchants;
@@ -46,12 +47,16 @@ public class MerchantService {
         }
         return null;
     }
-    public boolean addStock(String merchantID,Integer stock){
+    public Integer addStock(String merchantID,String productID,Integer stock){
         MerchantStock merchantStock = merchantStockService.finMerchantStockByID(merchantID);
         if(merchantStock == null){
-            return false;//merchant not found
+            return -1;//merchant not found
+        }
+        Product product = productService.findProductByID(productID);
+        if(product == null){
+            return 0;//product not found
         }
         merchantStock.setStock(merchantStock.getStock()+stock);
-        return true;
+        return 1;//stock updated
     }
 }
